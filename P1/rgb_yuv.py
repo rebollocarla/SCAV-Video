@@ -5,23 +5,41 @@ import cv2
 import subprocess
 import numpy as np
 from PIL import Image
+import os
 
-def rgb_to_yuv(red, green, blue):
+def rgb_to_yuv(rgb_color,truncate=False):
     # Convert RGB to YUV
+    red = rgb_color[0]
+    green = rgb_color[1]
+    blue = rgb_color[2]
+
     y = 0.299 * red + 0.587 * green + 0.114 * blue
     u = 0.492 * (blue - y)
     v = 0.877 * (red - y)
-    return y, u, v
 
-def yuv_to_rgb(y, u, v):
+    if truncate:
+        return [int(y), int(u), int(v)]
+    else:
+        return [y, u, v]
+
+def yuv_to_rgb(yuv_color,truncate=False):
     # Convert YUV to RGB
+    y = yuv_color[0]
+    u = yuv_color[1]
+    v = yuv_color[2]
+
     red = y + 1.13983 * v
     green = y - 0.39465 * u - 0.5806 * v
     blue = y + 2.03211 * u
-    return red, green, blue
+
+    if truncate:
+        return [int(red), int(green), int(blue)]
+    else:
+        return [red, green, blue]
 
 # Define a method to automate resizing and quality reduction
-def resize_and_reduce_quality(input_image, output_image, width, height, quality):
+def resize_and_reduce_quality(input_image, output_image, width, height):
+    
     # Get the width and height of the input image
     image = cv2.imread(input_image)
     og_height, og_width = image.shape[:2]
@@ -35,13 +53,13 @@ def resize_and_reduce_quality(input_image, output_image, width, height, quality)
             '-v', 'quiet',  # Set FFmpeg's verbosity level to quiet
             '-i', input_image,
             '-vf', f'scale={width}:{height}',
-            '-q:v', str(quality),
             output_image
         ]
 
         try:
             subprocess.run(ffmpeg_command, check=True)
             print(f"Resized and converted: {output_image}")
+            print(f'Output image dimensions: {width}x{height}\n')
         except:
             print(f"Error processing {output_image}")
     else:
@@ -83,27 +101,17 @@ def serpentine_read_jpeg(file_path):
         print()  # Move to the next line for the next row
 
 def convert_to_black_and_white_with_compression(input_image, output_image):
-    """
-    if not output_image:
-        # Crear una nueva imagen en blanco
-        cv2.imread(input_image)
-        height, width = image.shape[:2]
-        background_color = (255, 255, 255)  # Color de fondo blanco
-        image = Image.new("RGB", (width, height), background_color)
-        image.save(output_image, "JPG")
-        image.close()
-    """
+
     # Define FFmpeg command
     ffmpeg_cmd = [
         'ffmpeg',
         '-v', 'quiet',  # Set FFmpeg's verbosity level to quiet
         '-i', input_image,        # Input file
         '-vf', 'format=gray',    # Convert to grayscale
-        '-crf', '0',             # Constant Rate Factor (0 for lossless)
-        '-preset', 'ultrafast',  # Preset for compression (adjust as needed)
+        '-crf', '30',             # Constant Rate Factor (0 for lossless), higher for more compression
+        '-preset', 'slow',  # Preset for compression (adjust as needed)
         output_image
     ]
-
     try:
         # Run the FFmpeg command
         subprocess.run(ffmpeg_cmd, check=True)
@@ -134,52 +142,57 @@ def run_length_decode(encoded_data):
     return decoded_data
 
 def main():
+    ## Variables
+    path_images = os.path.join(os.getcwd(),'images')
+    # Task 1
+    rgb_og = [255, 128, 64]
+    # Task 2
+    input_image = os.path.join(path_images,"resize_input.jpg")  # Replace with your input image
+    output_image = os.path.join(path_images,"resize_output.jpg")  # Replace with the output path
+    width = 800
+    height = 600
+    # Task 3
+    serpentine_img = os.path.join(path_images,'degradado.jpg')
+    # Task 4
+    input_image = os.path.join(path_images,'bw_input.jpg')
+    output_image = os.path.join(path_images,'bw_output.jpg')
+    # Task 5
+    original_data = [1, 1, 1, 2, 2, 3, 4, 4, 4, 4]
+
     ## Task 1: Converting from RGB to YUV and viceversa
     print('\nTask 1: Converting from RGB to YUV and viceversa')
-    # Defining RGB color
-    red_rgb = 255
-    green_rgb = 128
-    blue_rgb = 64
-    """
+    
     # Convert RGB to YUV
-    y, u, v = rgb_to_yuv(red_rgb, green_rgb, blue_rgb)
+    yuv_color = rgb_to_yuv(rgb_og,truncate=True)
     # Convert YUV to RGB
-    red, green, blue = yuv_to_rgb(y, u, v)
+    rgb_color = yuv_to_rgb(yuv_color,truncate=True)
 
-    print(f'Original RGB color = ({red_rgb}, {green_rgb}, {blue_rgb})')
-    print(f'Conversion to YUV = ({y}, {u}, {v})')
-    print(f'After transformation RGB = ({red}, {green}, {blue})')
-    print(f'RGB truncated: ({int(red)}, {int(green)}, {int(blue)})')
-"""
+    print(f'Original RGB color = ({rgb_og})')
+    print(f'Conversion to YUV = ({yuv_color})')
+    print(f'After transformation RGB = ({rgb_color})')
+
+
     ## Task 2: Resizing images
     print('\nTask 2: Resizing images')
-    # Specify the input and output image files and quality
-    input_image = "input.jpg"  # Replace with your input image
-    output_image = "output.jpg"  # Replace with the output path
-    quality = 20  # Adjust the quality as needed
-
     # Resize and reduce quality of the input image
-    #resize_and_reduce_quality(input_image, output_image, 800, 600, quality)
+    #resize_and_reduce_quality(input_image, output_image, width, height)
 
     ## Task 3: Reading a file in serpentine mode
     print('\nTask 3: Reading a file in serpentine mode')
-    serpentine_read_jpeg('degradado.jpg')
+    serpentine_read_jpeg(serpentine_img)
 
     ## Task 4: Transforming an image to B/W
     print('\nTask 4: Transforming an image to B/W')
-    input_image = 'input.jpg'
-    output_image = 'bw.jpg'
     #convert_to_black_and_white_with_compression(input_image, output_image)
-"""
+
     # Task 5: Run-lenght encoding
     print('\nTask 5: Run-lenght encoding')
-    original_data = [1, 1, 1, 2, 2, 3, 4, 4, 4, 4]
     encoded_data = run_length_encode(original_data)
     decoded_data = run_length_decode(encoded_data)
 
     print("Original Data:", original_data)
     print("Encoded Data:", encoded_data)
     print("Decoded Data:", decoded_data)
-"""
+
 if __name__ == "__main__":
     main()
