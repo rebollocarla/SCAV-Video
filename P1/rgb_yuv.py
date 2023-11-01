@@ -1,11 +1,6 @@
-import sys
-import subprocess
-import ffmpeg
-import cv2
-import subprocess
+import sys, subprocess, ffmpeg, cv2, os
 import numpy as np
 from PIL import Image
-import os
 
 def rgb_to_yuv(rgb_color,truncate=False):
     # Convert RGB to YUV
@@ -70,35 +65,64 @@ def serpentine_read_jpeg(file_path):
     with open(file_path, 'rb') as file:
         # Read the entire file as bytes
         data = file.read()
-    
+
     # Check if it's a JPEG file (JPEG files start with bytes FF D8)
     if data[:2] != b'\xFF\xD8':
         print("This is not a valid JPEG file.")
-        return
-    
+
     # Get the width and height of the image from the JPEG header (offsets 163 and 164)
     width = (data[163] << 8) + data[164]
     height = (data[165] << 8) + data[166]
 
-    # Initialize variables for tracking position and direction
+    # Determine the matrix size as the minimum of width and height
+    matrix_size = min(width, height)
+
+    # Initialize variables for tracking position
     position = 2  # Start after the JPEG header
-    direction = 1  # 1 for left-to-right, -1 for right-to-left
-    
-    for row in range(height):
-        if direction == 1:
-            # Read from left to right
-            for col in range(width):
-                print(data[position], end=' ')
-                position += 1
+
+    # Define the order to read the matrix in the specified pattern
+    order = []
+
+    # Calculate the order of elements in the matrix
+    row, col = 0, 0  # Start at the top-left corner
+    order.append(row * matrix_size + col)
+    col += 1
+    order.append(row * matrix_size + col)
+    upwards = False
+
+    while row != matrix_size - 1 or col != matrix_size - 1:
+        if upwards:
+            while row > 0 and col < matrix_size - 1:
+                row -= 1
+                col += 1
+                order.append(row * matrix_size + col)
+            if col == matrix_size - 1:
+                row += 1
+            else:
+                col += 1
+            order.append(row * matrix_size + col)
+            
         else:
-            # Read from right to left
-            for col in range(width - 1, -1, -1):
-                print(data[position], end=' ')
-                position += 1
+            while col > 0 and row < matrix_size - 1:
+                row += 1
+                col -= 1
+                order.append(row * matrix_size + col)
+            if row == matrix_size - 1:
+                col += 1
+            else:
+                row += 1
+            order.append(row * matrix_size + col)
         
-        # Toggle direction for the next row
-        direction *= -1
-        print()  # Move to the next line for the next row
+        upwards = not upwards
+
+    count = 0
+    for index in order:
+        print(data[position + index], end=' ')
+        
+        # If we've reached the end of a row, print a newline
+        if count % matrix_size == matrix_size - 1:
+            print()
+        count += 1
 
 def convert_to_black_and_white_with_compression(input_image, output_image):
 
@@ -147,15 +171,15 @@ def main():
     # Task 1
     rgb_og = [255, 128, 64]
     # Task 2
-    input_image = os.path.join(path_images,"resize_input.jpg")  # Replace with your input image
-    output_image = os.path.join(path_images,"resize_output.jpg")  # Replace with the output path
+    resize_input = os.path.join(path_images,"resize_input.jpg")  # Replace with your input image
+    resize_output = os.path.join(path_images,"resize_output.jpg")  # Replace with the output path
     width = 800
     height = 600
     # Task 3
     serpentine_img = os.path.join(path_images,'degradado.jpg')
     # Task 4
-    input_image = os.path.join(path_images,'bw_input.jpg')
-    output_image = os.path.join(path_images,'bw_output.jpg')
+    bw_input = os.path.join(path_images,'bw_input.jpg')
+    bw_output = os.path.join(path_images,'bw_output.jpg')
     # Task 5
     original_data = [1, 1, 1, 2, 2, 3, 4, 4, 4, 4]
 
@@ -167,15 +191,15 @@ def main():
     # Convert YUV to RGB
     rgb_color = yuv_to_rgb(yuv_color,truncate=True)
 
-    print(f'Original RGB color = ({rgb_og})')
-    print(f'Conversion to YUV = ({yuv_color})')
-    print(f'After transformation RGB = ({rgb_color})')
+    print(f'Original RGB color = {rgb_og}')
+    print(f'Conversion to YUV = {yuv_color}')
+    print(f'After transformation RGB = {rgb_color}')
 
 
     ## Task 2: Resizing images
     print('\nTask 2: Resizing images')
     # Resize and reduce quality of the input image
-    #resize_and_reduce_quality(input_image, output_image, width, height)
+    resize_and_reduce_quality(resize_input, resize_output, width, height)
 
     ## Task 3: Reading a file in serpentine mode
     print('\nTask 3: Reading a file in serpentine mode')
@@ -183,7 +207,7 @@ def main():
 
     ## Task 4: Transforming an image to B/W
     print('\nTask 4: Transforming an image to B/W')
-    #convert_to_black_and_white_with_compression(input_image, output_image)
+    convert_to_black_and_white_with_compression(bw_input, bw_output)
 
     # Task 5: Run-lenght encoding
     print('\nTask 5: Run-lenght encoding')
