@@ -1,9 +1,10 @@
 # SCAV-Video
 
+All the tasks are develops in functions and tested afterwards in the main. The variables are found in the beginning of the main. You can change them as you want. The input images are in the folder /images or /videos so all input and output photos are going to be stored there by default.
+
 **P1: JPEG & MPEG**
 
 File **_rgb_yuv.py_**
-All the tasks are develops in functions and tested afterwards in the main. The variables are found in the beginning of the main. You can change them as you want. The input images are in the folder /images so all input and output photos are going to be stored there by default.
 
 TASK 1: _yuv_to_rgb_ and _rgb_to_yuv_ are functions that transform a color from one measure system to the other. The input and output is a three-element array with the components of the color.
 
@@ -20,3 +21,17 @@ File **_DCTConverter.py_**
 
 TASK 6: Using an input an image data, this file encodes and decodes it using DCT.
 Functions implemented: __init_, __dct_, __idct_, _convert_to_dct_, _decode_dct_
+
+**P2: Python & Video**
+
+File **_p2.py_**
+
+TASK 1: Having as an input a mp4 file,  _convert_mp4_to_mp2_ converts it and stores it as a mp2 file.
+
+TASK 2: Modifying the resolution of a video to the one you desire (new_resolution variable).
+
+TASK 3: Changing the chroma subsampling of a video (subsampling variable).
+
+TASK 4: Storing and showing in the terminal info of the video of your choice.
+
+TASK 5: Getting a frame from the video of your choice with ffmpeg and resizing it using the function resize_and_reduce_quality from P1 module.

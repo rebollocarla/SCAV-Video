@@ -1,0 +1,49 @@
+ffmpeg version 6.0 Copyright (c) 2000-2023 the FFmpeg developers
+  built with Apple clang version 14.0.0 (clang-1400.0.29.202)
+  configuration: --prefix=/usr/local/Cellar/ffmpeg/6.0_1 --enable-shared --enable-pthreads --enable-version3 --cc=clang --host-cflags= --host-ldflags= --enable-ffplay --enable-gnutls --enable-gpl --enable-libaom --enable-libaribb24 --enable-libbluray --enable-libdav1d --enable-libjxl --enable-libmp3lame --enable-libopus --enable-librav1e --enable-librist --enable-librubberband --enable-libsnappy --enable-libsrt --enable-libsvtav1 --enable-libtesseract --enable-libtheora --enable-libvidstab --enable-libvmaf --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxml2 --enable-libxvid --enable-lzma --enable-libfontconfig --enable-libfreetype --enable-frei0r --enable-libass --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenjpeg --enable-libspeex --enable-libsoxr --enable-libzmq --enable-libzimg --disable-libjack --disable-indev=jack --enable-videotoolbox --enable-audiotoolbox
+  libavutil      58.  2.100 / 58.  2.100
+  libavcodec     60.  3.100 / 60.  3.100
+  libavformat    60.  3.100 / 60.  3.100
+  libavdevice    60.  1.100 / 60.  1.100
+  libavfilter     9.  3.100 /  9.  3.100
+  libswscale      7.  1.100 /  7.  1.100
+  libswresample   4. 10.100 /  4. 10.100
+  libpostproc    57.  1.100 / 57.  1.100
+Input #0, mov,mp4,m4a,3gp,3g2,mj2, from '/Users/Carla/Documents/GitHub/SCAV-Video/P2/videos/subsampled_bigBuckBunny.mp4':
+  Metadata:
+    major_brand     : isom
+    minor_version   : 512
+    compatible_brands: isomiso2avc1mp41
+    encoder         : Lavf60.3.100
+  Duration: 00:09:56.46, start: 0.000000, bitrate: 411 kb/s
+  Stream #0:0[0x1](eng): Video: h264 (High 4:2:2) (avc1 / 0x31637661), yuv422p(progressive), 424x240, 277 kb/s, 24 fps, 24 tbr, 12288 tbn (default)
+    Metadata:
+      handler_name    : VideoHandler
+      vendor_id       : [0][0][0][0]
+      encoder         : Lavc60.3.100 libx264
+  Stream #0:1[0x2](eng): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 129 kb/s (default)
+    Metadata:
+      handler_name    : SoundHandler
+      vendor_id       : [0][0][0][0]
+Stream mapping:
+  Stream #0:0 -> #0:0 (h264 (native) -> wrapped_avframe (native))
+  Stream #0:1 -> #0:1 (aac (native) -> pcm_s16le (native))
+Press [q] to stop, [?] for help
+Output #0, null, to 'pipe:':
+  Metadata:
+    major_brand     : isom
+    minor_version   : 512
+    compatible_brands: isomiso2avc1mp41
+    encoder         : Lavf60.3.100
+  Stream #0:0(eng): Video: wrapped_avframe, yuv422p(progressive), 424x240, q=2-31, 200 kb/s, 24 fps, 24 tbn (default)
+    Metadata:
+      handler_name    : VideoHandler
+      vendor_id       : [0][0][0][0]
+      encoder         : Lavc60.3.100 wrapped_avframe
+  Stream #0:1(eng): Audio: pcm_s16le, 48000 Hz, stereo, s16, 1536 kb/s (default)
+    Metadata:
+      handler_name    : SoundHandler
+      vendor_id       : [0][0][0][0]
+      encoder         : Lavc60.3.100 pcm_s16le
+frame=    0 fps=0.0 q=-0.0 size=N/A time=00:00:00.14 bitrate=N/A speed=41.5x    frame=  968 fps=0.0 q=-0.0 size=N/A time=00:00:40.46 bitrate=N/A speed=80.3x    frame= 2085 fps=2076 q=-0.0 size=N/A time=00:01:27.01 bitrate=N/A speed=86.6x    frame= 3155 fps=2096 q=-0.0 size=N/A time=00:02:11.60 bitrate=N/A speed=87.4x    frame= 4016 fps=2003 q=-0.0 size=N/A time=00:02:47.50 bitrate=N/A speed=83.5x    frame= 4807 fps=1918 q=-0.0 size=N/A time=00:03:20.42 bitrate=N/A speed=  80x    frame= 5424 fps=1783 q=-0.0 size=N/A time=00:03:46.15 bitrate=N/A speed=74.3x    frame= 5999 fps=1694 q=-0.0 size=N/A time=00:04:10.11 bitrate=N/A speed=70.6x    frame= 6608 fps=1635 q=-0.0 size=N/A time=00:04:35.49 bitrate=N/A speed=68.2x    frame= 7186 fps=1582 q=-0.0 size=N/A time=00:04:59.58 bitrate=N/A speed=  66x    frame= 7705 fps=1528 q=-0.0 size=N/A time=00:05:21.17 bitrate=N/A speed=63.7x    frame= 8424 fps=1520 q=-0.0 size=N/A time=00:05:51.14 bitrate=N/A speed=63.3x    frame= 9128 fps=1510 q=-0.0 size=N/A time=00:06:20.48 bitrate=N/A speed=  63x    frame=10220 fps=1562 q=-0.0 size=N/A time=00:07:05.96 bitrate=N/A speed=65.1x    frame=11098 fps=1574 q=-0.0 size=N/A time=00:07:42.54 bitrate=N/A speed=65.6x    frame=12111 fps=1604 q=-0.0 size=N/A time=00:08:24.78 bitrate=N/A speed=66.9x    frame=12911 fps=1604 q=-0.0 size=N/A time=00:08:58.11 bitrate=N/A speed=66.8x    frame=13589 fps=1589 q=-0.0 size=N/A time=00:09:26.33 bitrate=N/A speed=66.2x    frame=14315 fps=1587 q=-0.0 Lsize=N/A time=00:09:56.41 bitrate=N/A speed=66.1x    
+video:6710kB audio:111832kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: unknown
