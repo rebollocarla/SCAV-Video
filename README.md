@@ -35,3 +35,16 @@ TASK 3: Changing the chroma subsampling of a video (subsampling variable).
 TASK 4: Storing and showing in the terminal info of the video of your choice.
 
 TASK 5: Getting a frame from the video of your choice with ffmpeg and resizing it using the function resize_and_reduce_quality from P1 module.
+
+**S2: Python Video**
+
+File **_video_processor.py_**
+
+TASK 1, 2 and 3 are defined in functions in this file inside the class _VideoProcessor_. The main of the whole seminar is found in this file as well.
+
+File **_subtitles.py_**
+TASK 4: Downloading the URL video, downloading its subtitles and joining them with the video developed in different functions.
+TASK 5 is calling it in the previous file.
+
+File **_yuv_histogram.py_**
+TASK 6: Creates the YUV histogram of the video introduced as input inside the class YUVHistogram. Called in the _video_processor.py_ main.
