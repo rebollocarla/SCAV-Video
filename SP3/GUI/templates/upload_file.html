@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subir Archivo</title>
+    <style>
+        input[type="file"] {
+            border-radius: 5px;
+            color: #ffffff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-size: 16px;
+            height: 30px;
+            width: 400px;
+            margin-right: 30px;
+            font-family: 'Helvetica', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: left;
+            height: 100vh; /* Set the body height to 100% of the viewport height */
+            display: flex;
+            margin-left: 40px;
+            margin-top: 20px;
+            color: #fff;
+            background: linear-gradient(to right, #081e2c, #066cab);
+            background-size: 200% 100%;
+            font-family: 'Helvetica', sans-serif;
+            font-size: 16px;
+        }
+
+        .styled-button {
+            padding: 10px 30px; /* Adjust padding as needed */
+            border-radius: 20px; /* Rounded corners */
+            background-color: #3498db; /* Background color */
+            color: #fff; /* Text color */
+            text-decoration: none; /* Remove underline from links */
+            font-size: 16px; /* Adjust font size */
+            font-family: 'Tahoma', sans-serif;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Ajusta los valores de sombra según sea necesario */
+            cursor: pointer; /* Add pointer cursor on hover */
+            transition: background-color 0.3s ease; /* Smooth transition for background color */
+            margin-right: 10px; /* Ajusta el espacio entre los botones según sea necesario */
+            margin-left: 10px;
+        }
+
+        h1 {
+            text-align: left;
+            font-family: 'Consolas', monospace;
+            font-size: x-large;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Ajusta los valores de sombra según sea necesario */
+            margin-right: 10px;
+            margin-bottom: 60px;
+        }
+
+        label {
+            text-align: left;
+            align-items: center;
+            font-family: 'Helvetica', sans-serif;
+            font-size: medium;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Ajusta los valores de sombra según sea necesario */
+            margin-left: 30px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="centered-text">
+        <h1>Subir Archivo</h1>
+        <form action="/process_file" method="post" enctype="multipart/form-data">
+            <!-- Hidden file input -->
+            <input type="file" name="file" id="fileInput" required>
+            <button type="submit" class="styled-button custom-button">Subir</button>
+        </form>
+    </div>
+</body>
+</html>
+

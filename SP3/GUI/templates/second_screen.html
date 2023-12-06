@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        input[type="text"] {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: left;
+            font-size: 16px;
+            height: 30px;
+            width: 400px;
+            margin-right: 30px;
+        }
+
+        body {
+            display: flex;
+            justify-content: left;
+            height: 100vh; /* Set the body height to 100% of the viewport height */
+            display: flex;
+            margin-left: 40px;
+            margin-top: 20px;
+            color: #fff;
+            background: linear-gradient(to right, #081e2c, #066cab);
+            background-size: 200% 100%;
+            font-family: 'Helvetica', sans-serif;
+            font-size: 16px;
+        }
+        
+        .styled-button {
+            padding: 10px 20px; /* Adjust padding as needed */
+            border-radius: 20px; /* Rounded corners */
+            background-color: #3498db; /* Background color */
+            color: #fff; /* Text color */
+            text-decoration: none; /* Remove underline from links */
+            font-size: 16px; /* Adjust font size */
+            font-family: 'Tahoma', sans-serif;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Ajusta los valores de sombra según sea necesario */
+            cursor: pointer; /* Add pointer cursor on hover */
+            transition: background-color 0.3s ease; /* Smooth transition for background color */
+            margin-right: 10px; /* Ajusta el espacio entre los botones según sea necesario */
+            margin-left: 10px;
+        }
+
+        .convertir-button {
+            padding: 10px 50px; /* Adjust padding as needed */
+            border-radius: 20px; /* Rounded corners */
+            background-color: #0d4164; /* Background color */
+            color: #fff; /* Text color */
+            text-decoration: none; /* Remove underline from links */
+            font-size: 16px; /* Adjust font size */
+            font-family: 'Tahoma', sans-serif;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Ajusta los valores de sombra según sea necesario */
+            cursor: pointer; /* Add pointer cursor on hover */
+            transition: background-color 0.3s ease; /* Smooth transition for background color */
+            margin-right: 10px; /* Ajusta el espacio entre los botones según sea necesario */
+            margin-left: 10px;
+        }
+
+        h1 {
+            text-align: left;
+            font-family: 'Consolas', monospace;
+            font-size: x-large;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Ajusta los valores de sombra según sea necesario */
+            margin-right: 10px;
+            margin-bottom: 60px;
+        }
+
+        label {
+            text-align: left;
+            align-items: center;
+            font-family: 'Helvetica', sans-serif;
+            font-size: medium;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Ajusta los valores de sombra según sea necesario */
+            margin-left: 30px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="centered-text">
+        <h1>Pick resolution and codec for the converted video</h1>
+        <form action="/convert_and_download" method="post">
+            <input type="hidden" name="input_video" value= {{input_video}} >
+        <!--<form action="/convert_and_download?input_video=uploads/input_video" method="post"> -->
+            <!-- Campos de selección -->
+            <label for="resolution">Resolution:</label>
+            <select id="resolution" name="resolution" class="styled-button custom-button">
+                <option value="1280x720">1280x720</option>
+                <option value="640x480">640x480</option>
+                <option value="360x240">360x240</option>
+                <option value="160x120">160x120</option>
+            </select>
+
+            <label for="codec">Codec:</label>
+            <select id="codec" name="codec" class="styled-button custom-button">
+                <option value="libvpx">VP8</option>
+                <option value="libvpx-vp9">VP9</option>
+                <option value="libx265">h265</option>
+                <option value="libaom-av1">AV1</option>
+            </select>
+
+            <button type="submit" class="convertir-button custom-button">Convertir</button>
+        </form>
+    </div>
+</body>
+</html>
