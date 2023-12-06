@@ -48,3 +48,13 @@ TASK 5 is calling it in the previous file.
 
 File **_yuv_histogram.py_**
 TASK 6: Creates the YUV histogram of the video introduced as input inside the class YUVHistogram. Called in the _video_processor.py_ main.
+
+**SP3: Final exercises**
+File **_video_converter.py_**
+TASK 1: This file has a class VideoConverter which allows to convert the resolution of a video file and to choose the video codec to use (separate functions). Its main also contains the test for task 2, comparing videos.
+
+File **_video_comparer.py_**
+TASK 2: VideoComparer is a class as well. It is used to compare the two inputs videos of your choice (reccomended to use the video_converter to see the minor differences).
+
+TASK 3: GUI. 
+There is a specific folder, GUI, which contains the code: Flask and HTML. It also contains a modified version of the video_converter.py. The GUI starts with a choose source of your video: from your device or through a link. Then, you can choose its new resolution and codec and finally the video is send to you. Unfortunately, the last step of downloading did not work because I had issues to get the input file correctly. Finally, I could get the input file full path correctly but ffmpeg said to be dealing with a directory, not a file, which worked fine for the first exercises and I was unable to solve that.
